@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
 
 // components
 import WorkoutDetails from "../components/WorkoutDetails"
 import WorkoutForm from "../components/WorkoutForm"
 
 const Home = () => {
-  const [workouts, setWorkouts] = useState(null)
+  const { workouts, dispatch } = useWorkoutsContext()
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -13,12 +14,12 @@ const Home = () => {
       const jsonData = await response.json()
 
       if (response.ok) {
-        setWorkouts(jsonData)
+        dispatch({type: 'GET_WORKOUTS', payload: jsonData}) // تغيير حالة state في useContext وتخزين فيها جميع المستندات
       }
     }
 
     fetchWorkouts()
-  }, [])
+  }, [dispatch])
 
   return (
     <div className="home">
