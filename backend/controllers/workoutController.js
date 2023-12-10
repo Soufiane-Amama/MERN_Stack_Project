@@ -31,6 +31,21 @@ const getWorkout = async (req, res) => {
 const createWorkout = async (req, res) => {
   const {title, load, reps} = req.body
 
+  let emptyFields = [] // مصفوفة لتخزين الحقول الفارغة التي تم ارسالها مع الطلب 
+
+  if (!title) {
+    emptyFields.push('title')
+  }
+  if (!load) {
+    emptyFields.push('load')
+  }
+  if (!reps) {
+    emptyFields.push('reps')
+  }
+  if (emptyFields.length > 0) {
+    return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
+  }
+
   // add to the database
   try {
     const workout = await Workout.create({ title, load, reps })  // انشاء مستند من النموذج
