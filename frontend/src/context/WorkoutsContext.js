@@ -17,6 +17,11 @@ export const workoutsReducer = (state, action) => { // دالة workoutsReducer 
         //وهو المستند الجديد action.payload
         // وضعنا ...state.workouts وهي المستندات السابقة لاضافة عليها الجديدة.
       }
+    case 'DELETE_WORKOUT':
+      return { 
+        workouts: state.workouts.filter(w => w._id !== action.payload._id) 
+        // قمت بعمل تصفية للمسندات قبل اجراء تغيير قيمة الحالة وسيتم تتبع كل id مستند ومطابقته مع id مستند المراد حذفه وسيرجع true اذا لم يتطابق مع المستند و false اذا تطابق وبعدها سيحذف.
+      }
     default:
       return state
   }
