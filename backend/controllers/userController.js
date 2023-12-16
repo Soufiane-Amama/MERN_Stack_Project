@@ -14,7 +14,7 @@ const signupUser = async (req, res) => {
     const user = await User.signup(email, password) // استخدمنا الدالة ثابتة الموجودة في ملف userModel.js
 
     res.status(200).json({email, user})
-  } catch (error) {
+  } catch (error) { // هنا سنكتشف اي خطا من دالة ثابتة تم ارساله من throw ونرسله كرد
     res.status(400).json({error: error.message})
   }
 }
