@@ -1,13 +1,13 @@
 // الهدف من هذا الخطاف لكي يسهل علينا استخدامه في اي مكان في التطبيق وبدوره سيقوم بجلب البيانات لنا من useContext.
 
-import { WorkoutsContext } from "../context/WorkoutsContext"
+import { AuthContext } from "../context/AuthContext"
 import { useContext } from "react"
 
-export const useWorkoutsContext = () => {
-  const dataContext = useContext(WorkoutsContext)
+export const useAuthContext = () => {
+  const dataContext = useContext(AuthContext)
 
   if(!dataContext) {
-    throw Error('useWorkoutsContext must be used inside an WorkoutsContextProvider')
+    throw Error('useAuthContext must be used inside an AuthContextProvider')
   }
 
   return dataContext
