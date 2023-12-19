@@ -19,7 +19,7 @@ const userSchema = new Schema({
 
 
 // static signup method
-userSchema.statics.signup = async function(email, password) {
+userSchema.statics.signup = async function(email, password) { // لم استخدم الوظيفة السهمية بسبب ان this لا تشتغل فيها 
 
   // validation
   if (!email || !password) {
@@ -33,7 +33,7 @@ userSchema.statics.signup = async function(email, password) {
   }
 
   const exists = await this.findOne({ email }) // التحقق من وجود الايميل في قاعدة البيانات 
-  // كان بامكاننا عمل  User.findOne({ email }) لكن في الوقت الذي اكتب فيه هذا الكود لم يتم عمل مجموعة باسم User في قاعدة البيانات لحفظ المستخدمين لذلك استخدمنا this
+  // كان بامكاننا عمل  User.findOne({ email }) لكن في الوقت الذي اكتب فيه هذا الكود لم يتم عمل مجموعة باسم User في قاعدة البيانات لحفظ المستخدمين لذلك استخدمنا this وايضا لانها تشير الى هذا النموذج المتواجدين فيه حاليا والذي يتم تصديره.
 
   if (exists) {
     throw Error('Email already in use')
@@ -43,6 +43,27 @@ userSchema.statics.signup = async function(email, password) {
   const passwordHash = await bcrypt.hash(password, salt)
 
   const user = await this.create({ email, password: passwordHash })
+
+  return user
+}
+
+
+// static login method
+userSchema.statics.login = async function(email, password) {
+
+  if (!email || !password) {
+    throw Error('All fields must be filled')
+  }
+
+  const user = await this.findOne({ email }) // find user
+  if (!user) {
+    throw Error('Incorrect email')
+  }
+
+  const match = await bcrypt.compare(password, user.password) // تجزئة كلمة المرور ومقارنتها - الجواب سيكون true او false
+  if (!match) {
+    throw Error('Incorrect password')
+  }
 
   return user
 }
