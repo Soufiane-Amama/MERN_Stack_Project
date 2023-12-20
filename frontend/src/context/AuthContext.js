@@ -1,4 +1,4 @@
-import { createContext, useReducer } from 'react'
+import { createContext, useReducer, useEffect } from 'react'
 
 export const AuthContext = createContext()
 
@@ -15,6 +15,14 @@ export const authReducer = (state, action) => {
 
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, { user: null })
+
+  useEffect(() => { // للحفاظ على بيانات المستخدم محفوظة في واجهة المستخدم عند تحديث الصفحة البريد الالكتروني يبقى ظاهر في الرياكت..وايضا باقي البيانات السرية
+    const user = JSON.parse(localStorage.getItem('user')) // دالة JSON.parse() في الجافاسكريبت تقوم بتحويل سلسلة نصية JSON إلى كائن JavaScript. وهذا يعني أنها تأخذ سلسلة نصية تمثل بيانات في تنسيق JSON وتحولها إلى كائن JavaScript يمكن استخدامه في البرنامج.
+
+    if (user) {
+      dispatch({ type: 'LOGIN', payload: user }) 
+    }
+  }, [])
 
   console.log('AuthContext state:', state)
   
