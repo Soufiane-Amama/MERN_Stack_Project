@@ -110,6 +110,8 @@ nav {
 }
 nav a {
   margin-left: 10px;
+  font-weight: bold;
+  color: var(--primary);
 }
 /* auth forms */
 form.signup, form.login {
