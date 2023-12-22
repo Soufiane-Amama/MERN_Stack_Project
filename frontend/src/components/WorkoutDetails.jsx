@@ -1,14 +1,24 @@
 import { useWorkoutsContext } from '../hooks/useWorkoutsContext'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 // date fns ==> Link library: https://date-fns.org/ ==> install: npm i date-fns
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 
+
 const WorkoutDetails = ({ workout }) => {
   const { dispatch } = useWorkoutsContext()
+  const { user } = useAuthContext()
 
   const handleClick = async () => {
+    if (!user) {  // اذا لم يكن هناك مستخدم لا تقم بارسال الطلب 
+      return
+    }
+
     const response = await fetch('/api/workouts/' + workout._id, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      }
     })
     const jsonData = await response.json()
 
