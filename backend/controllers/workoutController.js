@@ -3,7 +3,9 @@ const mongoose = require('mongoose')
 
 // get all workouts
 const getWorkouts = async (req, res) => {
-  const workouts = await Workout.find({}).sort({createdAt: -1}) // قمنا بترك الكائن فارغ ليجلب جميع التدريبات ثم قمنا بفرزها وترتيبها على حسب تاريخ الانشاء لتظهر الاحدث في اعلى الصفحة
+  const user_id = req.user._id
+
+  const workouts = await Workout.find({user_id}).sort({createdAt: -1}) // سيجلب جميع التدريبات التي تنتمي الى معرف المستخدم الحالي المسجل دخوله في الموقع ثم قمنا بفرزها وترتيبها على حسب تاريخ الانشاء لتظهر الاحدث في اعلى الصفحة
 
   res.status(200).json(workouts)
 }
@@ -48,7 +50,9 @@ const createWorkout = async (req, res) => {
 
   // add to the database
   try {
-    const workout = await Workout.create({ title, load, reps })  // انشاء مستند من النموذج
+    const user_id = req.user._id
+
+    const workout = await Workout.create({ title, load, reps, user_id })  // انشاء مستند من النموذج
     res.status(200).json(workout)
   } catch (error) {
     res.status(400).json({ error: error.message })

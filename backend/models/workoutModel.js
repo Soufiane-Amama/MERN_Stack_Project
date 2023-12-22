@@ -15,6 +15,10 @@ const workoutSchema = new Schema({
     load: {
       type: Number,
       required: true
+    },
+    user_id: {
+      type: String,
+      required: true
     }
   }, { timestamps: true }) // خاصية timestamps عملها اضافة تلقائيا تاريخ الانشاء لكل مستند ومتى تم تحديث كل مستند.
   
