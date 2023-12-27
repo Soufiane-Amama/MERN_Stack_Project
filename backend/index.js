@@ -18,10 +18,16 @@ app.use(express.json())
 
 app.use(cors())
 
-app.use(cors({
-    origin: 'https://workout-theta.vercel.app',
-    credentials: true
-  }));
+// app.use(cors({
+//     origin: 'https://workout-theta.vercel.app',
+//     credentials: true
+//   }));
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://workout-theta.vercel.app'); // يمكنك استبدال '*' بالمواقع التي تسمح لها بالوصول
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 app.use((req, res, next) => {
     console.log(req.path, req.method)
