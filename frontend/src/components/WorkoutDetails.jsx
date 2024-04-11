@@ -14,7 +14,7 @@ const WorkoutDetails = ({ workout }) => {
       return
     }
 
-    const response = await fetch('https://workout-app-server-gules.vercel.app//api/workouts/' + workout._id, {
+    const response = await fetch('https://server-app-xnw2.onrender.com/api/workouts/' + workout._id, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${user.token}`

@@ -12,7 +12,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchWorkouts = async () => {
-      const response = await fetch('https://workout-app-server-gules.vercel.app/api/workouts', {
+      const response = await fetch('https://server-app-xnw2.onrender.com/api/workouts', {
         headers: {'Authorization': `Bearer ${user.token}`}, // ارسال مع الطلب الرمز المميز للمصادقة عليه
       })
       const jsonData = await response.json()

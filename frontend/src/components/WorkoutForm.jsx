@@ -22,7 +22,7 @@ const WorkoutForm = () => {
 
     const workout = {title, load, reps}
     
-    const response = await fetch('https://workout-app-server-gules.vercel.app/api/workouts', {
+    const response = await fetch('https://server-app-xnw2.onrender.com/api/workouts', {
       method: 'POST',
       body: JSON.stringify(workout),
       headers: {
