@@ -35,6 +35,10 @@ app.use((req, res, next) => {
 })
 
 
+// مسار أساسي
+app.get("/", (req, res) => {
+    res.send("Server is running successfully!");
+});
 
 // routes
 app.use('/api/workouts', workoutRoutes)
